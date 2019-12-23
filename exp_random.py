@@ -12,7 +12,7 @@ import argparse
 from getpass import getpass
 
 # Key is the password required to generate a new participant ID
-key = "<your_password_here>"
+key = "kronos"
 
 # If participant ID's have already been generated, generation step is skipped
 if not os.path.exists("./cache.txt"):
