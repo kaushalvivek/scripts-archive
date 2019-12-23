@@ -1,17 +1,20 @@
 import requests
 import csv
 from bs4 import BeautifulSoup
+import re
 
 data = []
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}
 
-url = 'https://www.ces.tech/Conference/Speaker-Directory'
+url = "/Users/vivekkaushal/Downloads/file.htm"
 try:
-  r = requests.get(url, headers=headers, timeout=5)
+  # r = requests.get(url, headers=headers, timeout=5)
+  page = open(url)
 except:
   print('Could not reach website')
+  quit()
 
-soup = BeautifulSoup(r.text, 'html.parser')
+soup = BeautifulSoup(page, 'html.parser')
 articles = soup.find("article", {"id": "speaker-listing"})
 aside = articles.find_all("aside")
 for i in aside:
@@ -27,7 +30,6 @@ for i in aside:
   data.append(points)
 
 keys = data[0].keys()
-print(keys)
 with open('data.csv', 'w+') as output_file:
     dict_writer = csv.DictWriter(output_file, keys)
     dict_writer.writeheader()
